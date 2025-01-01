@@ -1,10 +1,10 @@
 FROM ubuntu:24.04
 
 # Update the package list and upgrade installed packages
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update -y && apt-get upgrade -y
 
-# Install any additional packages you need
-# RUN apt-get install -y package-name
+# Install Python 3 and pip
+RUN apt-get install -y python3 python3-pip
 
 # Add the new non-root user 'polyrunner'
 RUN useradd -m -s /bin/bash polyrunner
