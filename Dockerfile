@@ -17,6 +17,11 @@ RUN echo 'export PATH="$PATH:/home/ubuntu/.local/bin"' >> ~/.bashrc
 USER root
 RUN apt-get install -y python3 python3-pip curl wget
 
+# Install pipx
+USER ubuntu
+RUN pip3 install pipx
+RUN pipx ensurepath
+
 # Install Poetry
 USER ubuntu
 RUN curl -sSL https://install.python-poetry.org | python3 -
