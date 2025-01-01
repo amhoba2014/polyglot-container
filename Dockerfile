@@ -26,4 +26,4 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 # Switch to the non-root user and change the working directory and run!
 USER polyrunner
 WORKDIR /home/polyrunner
-ENTRYPOINT ["sleep", "infinity"]
+ENTRYPOINT ["/bin/bash"]
