@@ -12,7 +12,7 @@ RUN useradd -m -s /bin/bash polyrunner
 RUN echo 'alias la="ls -A"' >> /home/polyrunner/.bashrc
 RUN echo 'alias ll="ls -alF"' >> /home/polyrunner/.bashrc
 RUN echo 'alias l="ls -lh"' >> /home/polyrunner/.bashrc
-RUN echo 'export PATH="\$PATH:/home/\$USER/.local/bin"' >> /home/polyrunner/.bashrc
+RUN echo 'export PATH="$PATH:/home/$USER/.local/bin"' >> /home/polyrunner/.bashrc
 RUN chown polyrunner:polyrunner /home/polyrunner/.bashrc
 
 # Install Python 3, pip, curl and wget
