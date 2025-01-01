@@ -45,6 +45,10 @@ RUN bash -li -c "yes | pnpm --version ; yes | yarn --version ; exit 0" && rm -f 
 USER root
 RUN apt-get update -y && apt-get install -y golang
 
+# Install rust
+USER ubuntu
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
 # Switch to the non-root user and change the working directory and run!
 USER ubuntu
 WORKDIR /home/ubuntu
