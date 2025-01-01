@@ -8,6 +8,7 @@ RUN apt-get update -y && apt-get upgrade -y
 
 # Update ubuntu user's settings
 USER ubuntu
+RUN echo '' >> ~/.bashrc
 RUN echo 'alias la="ls -A"' >> ~/.bashrc
 RUN echo 'alias ll="ls -alF"' >> ~/.bashrc
 RUN echo 'alias l="ls -lh"' >> ~/.bashrc
@@ -31,9 +32,9 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 RUN bash -li -c "poetry completions bash >> ~/.bash_completion" && rm -f ~/.bash_history
 
 # Install nvm, Node.js, and pnpm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
-    nvm install 22 && \
-    corepack enable pnpm
+USER ubuntu
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+RUN bash -li -c "nvm install 22 && corepack enable pnpm" && rm -f ~/.bash_history
 
 # Switch to the non-root user and change the working directory and run!
 USER ubuntu
