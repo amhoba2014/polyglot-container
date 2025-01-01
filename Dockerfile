@@ -14,9 +14,13 @@ RUN echo 'alias ll="ls -alF"' >> ~/.bashrc
 RUN echo 'alias l="ls -lh"' >> ~/.bashrc
 RUN echo 'export PATH="$PATH:/home/ubuntu/.local/bin"' >> ~/.bashrc
 
-# Install Python 3, pip, curl and wget
+# Install tools
 USER root
-RUN apt-get update -y && apt-get install -y python3 python3-pip curl wget
+RUN apt-get update -y && apt-get install -y curl wget git htop nano iproute2 net-tools iputils-ping build-essential zip unzip
+
+# Install Python 3 and pip
+USER root
+RUN apt-get update -y && apt-get install -y python3 python3-pip
 
 # Install pipx
 USER root
