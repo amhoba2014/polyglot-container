@@ -38,8 +38,8 @@ RUN bash -li -c "poetry completions bash >> ~/.bash_completion" && rm -f ~/.bash
 # Install nvm, Node.js, and pnpm
 USER ubuntu
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-RUN bash -li -c "nvm install 22 && corepack enable pnpm" && rm -f ~/.bash_history
-RUN bash -li -c "yes | pnpm ; exit 0" && rm -f ~/.bash_history
+RUN bash -li -c "nvm install 22 && corepack enable pnpm yarn" && rm -f ~/.bash_history
+RUN bash -li -c "yes | pnpm --version ; yes | yarn --version ; exit 0" && rm -f ~/.bash_history
 
 # Switch to the non-root user and change the working directory and run!
 USER ubuntu
