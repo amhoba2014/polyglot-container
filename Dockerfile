@@ -28,7 +28,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 RUN poetry completions bash >> ~/.bash_completion
 
 # Install nvm, Node.js, and pnpm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
     nvm install 22 && \
     corepack enable pnpm
 
