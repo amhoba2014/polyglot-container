@@ -16,7 +16,7 @@ RUN echo 'export PATH="$PATH:/home/ubuntu/.local/bin"' >> ~/.bashrc
 
 # Install tools
 USER root
-RUN apt-get update -y && apt-get install -y curl wget git htop nano iproute2 net-tools iputils-ping build-essential zip unzip
+RUN apt-get update -y && apt-get install -y curl wget git htop nano iproute2 net-tools iputils-ping build-essential zip unzip bash-completion
 
 # Install Python 3 and pip
 USER root
