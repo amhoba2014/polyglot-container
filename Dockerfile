@@ -1,22 +1,24 @@
 FROM ubuntu:24.04
 
-# Set environment variables to make the installation non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update the package list and upgrade installed packages
+USER root
 RUN apt-get update -y && apt-get upgrade -y
 
-# Install Python 3 and pip
-RUN apt-get install -y python3 python3-pip
-
 # Add the new non-root user 'polyrunner'
+USER root
 RUN useradd -m -s /bin/bash polyrunner
 
-# Set the working directory
-WORKDIR /home/polyrunner
+# Install Python 3, pip, curl and wget
+USER root
+RUN apt-get install -y python3 python3-pip curl wget
 
-# Switch to the non-root user
+# Install Poetry
+USER root
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# Switch to the non-root user and change the working directory and run!
 USER polyrunner
-
-# Set the entrypoint to an infinite sleep
+WORKDIR /home/polyrunner
 ENTRYPOINT ["tail", "-f", "/dev/null"]
