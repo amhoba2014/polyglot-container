@@ -28,7 +28,7 @@ RUN echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.bashrc
 # Install Poetry
 USER ubuntu
 RUN curl -sSL https://install.python-poetry.org | python3 -
-RUN . ~/.bashrc && poetry completions bash >> ~/.bash_completion
+RUN bash -li -c "poetry completions bash >> ~/.bash_completion" && rm ~/.bash_history
 
 # Install nvm, Node.js, and pnpm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash && \
