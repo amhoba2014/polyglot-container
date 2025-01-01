@@ -2,7 +2,6 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ "main" ]
     tags:
       - 'v*'
   workflow_dispatch:
@@ -24,11 +23,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get latest tag
+      - name: Get current tag
         id: get_tag
         run: |
-          LATEST_TAG=$(git describe --tags --abbrev=0)
-          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_OUTPUT
+          CURRENT_TAG=${GITHUB_REF#refs/tags/}
+          echo "CURRENT_TAG=${CURRENT_TAG}" >> $GITHUB_OUTPUT
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
@@ -44,8 +43,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest
-            type=sha,format=long
-            type=raw,value=${{ steps.get_tag.outputs.LATEST_TAG }}
+            type=raw,value=${{ steps.get_tag.outputs.CURRENT_TAG }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
