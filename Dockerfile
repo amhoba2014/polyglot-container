@@ -11,7 +11,7 @@ USER ubuntu
 RUN echo 'alias la="ls -A"' >> ~/.bashrc
 RUN echo 'alias ll="ls -alF"' >> ~/.bashrc
 RUN echo 'alias l="ls -lh"' >> ~/.bashrc
-RUN echo 'export PATH="$PATH:/home/$USER/.local/bin"' >> ~/.bashrc
+RUN echo 'export PATH="$PATH:/home/ubuntu/.local/bin"' >> ~/.bashrc
 
 # Install Python 3, pip, curl and wget
 USER root
