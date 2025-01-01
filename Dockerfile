@@ -20,6 +20,7 @@ RUN apt-get install -y python3 python3-pip curl wget
 # Install Poetry
 USER ubuntu
 RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN poetry completions bash >> ~/.bash_completion
 
 # Switch to the non-root user and change the working directory and run!
 USER ubuntu
