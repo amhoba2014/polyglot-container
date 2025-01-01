@@ -1,5 +1,8 @@
 FROM ubuntu:24.04
 
+# Set environment variables to make the installation non-interactive
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Update the package list and upgrade installed packages
 RUN apt-get update -y && apt-get upgrade -y
 
