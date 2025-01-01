@@ -15,12 +15,12 @@ RUN echo 'export PATH="$PATH:/home/ubuntu/.local/bin"' >> ~/.bashrc
 
 # Install Python 3, pip, curl and wget
 USER root
-RUN apt-get install -y python3 python3-pip curl wget
+RUN apt-get update -y && apt-get install -y python3 python3-pip curl wget
 
 # Install pipx
-USER ubuntu
-RUN pip3 install pipx
-RUN pipx ensurepath
+USER root
+RUN apt-get update -y && apt-get install -y pipx
+RUN pipx ensurepath --global
 
 # Install Poetry
 USER ubuntu
