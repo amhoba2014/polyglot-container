@@ -20,7 +20,10 @@ RUN apt-get update -y && apt-get install -y python3 python3-pip curl wget
 # Install pipx
 USER root
 RUN apt-get update -y && apt-get install -y pipx
-RUN pipx ensurepath --global
+
+# Add pipx completions
+USER ubuntu
+RUN echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.bashrc
 
 # Install Poetry
 USER ubuntu
