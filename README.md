@@ -38,5 +38,9 @@ This will start a new container from the image and open a shell session.
 ## Contributing
  Contributions are welcome! If you have any suggestions or improvements, please submit a pull request or issue on the [GitHub repository](https://github.com/amhoba2014/polyglot-container).
 
+<!--
+git add -A && git commit -am 'MESSAGE' && git tag -m 'MESSAGE' v1.0.0 && git push --follow-tags
+-->
+
 ## License
 The Polyglot Container is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for details.
