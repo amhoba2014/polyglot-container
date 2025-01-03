@@ -17,6 +17,7 @@ The image supports Python, Node.js, Golang, and Rust, making it an ideal solutio
 	+ Golang (v1.22.2)
 	+ Rust (v1.83.0)
 * Provides a fast and disposable test and development environment
+* No `sudo` access is provided to the ubuntu user to keep security burdens high.
 
 ## Usage
 To use the Polyglot Container, follow these steps:
