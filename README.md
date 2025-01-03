@@ -4,18 +4,18 @@
 [![Docker Image](https://img.shields.io/badge/Docker-ghcr.io%2Famhoba2014%2Fpolyglot--container%3Alatest-blue)](https://github.com/amhoba2014/polyglot-container/pkgs/container/polyglot-container)
 
 ## Overview
-The Polyglot Container is a Docker image designed to provide a comprehensive development environment for multiple programming languages. It is based on Ubuntu 24.04 and includes essential tools such as Git, Nano, and build tools. 
+The Polyglot Container is a Docker image designed to provide a comprehensive development environment for multiple programming languages. It is based on Ubuntu 24.04 and includes essential tools such as git, nano, etc. 
 
 The image supports Python, Node.js, Golang, and Rust, making it an ideal solution for developers who work with multiple languages.
 
 ## Features
 * Based on Ubuntu 24.04
-* Includes Git, Nano, and build tools
+* Includes curl, wget, git, htop, nano, zip, unzip, rar, unrar, network tools and build tools
 * Supports multiple programming languages:
-	+ Python
-	+ Node.js
-	+ Golang
-	+ Rust
+	+ Python (v3.12.3), pip, poetry, uv
+	+ Node.js (v22.12.0), pnpm, yarn
+	+ Golang (v1.22.2)
+	+ Rust (v1.83.0)
 * Provides a fast and disposable test and development environment
 
 ## Usage

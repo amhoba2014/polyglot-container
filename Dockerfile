@@ -16,7 +16,7 @@ RUN echo 'export PATH="$PATH:/home/ubuntu/.local/bin"' >> ~/.bashrc
 
 # Install tools
 USER root
-RUN apt-get update -y && apt-get install -y curl wget git htop nano iproute2 net-tools iputils-ping build-essential zip unzip bash-completion
+RUN apt-get update -y && apt-get install -y curl wget git htop nano iproute2 net-tools iputils-ping build-essential zip unzip rar unrar python-is-python3 bash-completion
 
 # Install Python 3 and pip
 USER root
@@ -34,6 +34,10 @@ RUN echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.bashrc
 USER ubuntu
 RUN curl -sSL https://install.python-poetry.org | python3 -
 RUN bash -li -c "poetry completions bash >> ~/.bash_completion" && rm -f ~/.bash_history
+
+# Install uv
+USER ubuntu
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install nvm, Node.js, and pnpm
 USER ubuntu
