@@ -52,14 +52,17 @@ jobs:
             type=raw,value=latest
             type=raw,value=${{ steps.get_tag.outputs.CURRENT_TAG }}
 
-      - name: Docker Cache
-        id: docker-build
+      - name: Calculate Docker image cache key
+        id: cache-key
+        run: echo "key=${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}" >> $GITHUB_OUTPUT
+
+      - name: Cache Docker layers
         uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
-          key: docker-buildx-${{ github.sha }}
+          key: ${{ steps.cache-key.outputs.key }}-${{ github.sha }}
           restore-keys: |
-            docker-buildx-
+            ${{ steps.cache-key.outputs.key }}-
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
@@ -69,11 +72,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
-
-      - name: Update Cache
-        shell: bash
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
