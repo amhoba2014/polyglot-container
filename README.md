@@ -45,4 +45,3 @@ git add -A && git commit -am 'MESSAGE' && git tag -m 'MESSAGE' v1.0.0 && git pus
 
 ## License
 The Polyglot Container is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for details.
-
