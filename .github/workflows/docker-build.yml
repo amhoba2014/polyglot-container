@@ -33,7 +33,6 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v3
         with:
-          # Sets `docker build` as an alias to `docker buildx`
           install: true
 
       - name: Log in to the Container registry
@@ -52,28 +51,10 @@ jobs:
             type=raw,value=latest
             type=raw,value=${{ steps.get_tag.outputs.CURRENT_TAG }}
 
-      - name: Docker Cache
-        id: docker-build
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: docker-buildx-${{ github.sha }}
-          restore-keys: |
-            docker-buildx-
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
-          builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
-
-      - name: Update Cache
-        shell: bash
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
