@@ -53,10 +53,6 @@ RUN apt-get update -y && apt-get install -y golang
 USER ubuntu
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-# Test cache
-USER ubuntu
-RUN touch testfile
-
 # Switch to the non-root user and change the working directory and run!
 USER ubuntu
 WORKDIR /home/ubuntu
