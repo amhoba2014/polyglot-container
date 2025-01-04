@@ -15,17 +15,8 @@ RUN echo 'alias l="ls -lh"' >> ~/.bashrc
 RUN echo 'export PATH="$PATH:/home/ubuntu/.local/bin"' >> ~/.bashrc
 
 # Install tools
-ARG TARGETPLATFORM
 USER root
-RUN apt-get update -y && \
-    apt-get install -y curl wget git htop nano iproute2 net-tools iputils-ping build-essential zip unzip python-is-python3 bash-completion && \
-    if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
-        apt-get install -y rar unrar; \
-    elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
-        apt-get install -y unrar-free; \
-    else \
-        echo "Unsupported architecture" && exit 1; \
-    fi
+RUN apt-get update -y && apt-get install -y curl wget git htop nano iproute2 net-tools iputils-ping build-essential zip unzip rar unrar python-is-python3 bash-completion
 
 # Install Python 3 and pip
 USER root
