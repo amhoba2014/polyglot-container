@@ -6,13 +6,14 @@ import sys
 # Access environment variables
 USER = os.environ.get('USER')
 HOME = os.environ.get('HOME')
-NEW_UID = os.environ.get('NEW_UID', "1000")
-NEW_GID = os.environ.get('NEW_GID', "1000")
-VNCPORT = os.environ.get('VNCPORT', "5900")
-NOVNCPORT = os.environ.get('NOVNCPORT', "9090")
+NEW_UID = os.environ.get('NEW_UID', '1000')
+NEW_GID = os.environ.get('NEW_GID', '1000')
+NEW_PWD = os.environ.get('NEW_PWD', 'changeme')
+VNCPORT = os.environ.get('VNCPORT', '5900')
+NOVNCPORT = os.environ.get('NOVNCPORT', '9090')
 VNCPWD = os.environ.get('VNCPWD', 'changeme')
 VNCDISPLAY = os.environ.get('VNCDISPLAY', '1920x1080')
-VNCDEPTH = os.environ.get('VNCDEPTH', "16")
+VNCDEPTH = os.environ.get('VNCDEPTH', '16')
 
 
 def step_1_root():
@@ -22,6 +23,8 @@ def step_1_root():
     os.system(f"sudo usermod -g {NEW_GID} ubuntu")
     os.system("find / -uid 1000 -exec chown " + NEW_UID + " '{}' \;")
     os.system("find / -gid 1000 -exec chgrp " + NEW_GID + " '{}' \;")
+    print("Change password of the ubuntu user")
+    os.system(f"echo 'ubuntu:{NEW_PWD}' | sudo chpasswd")
 
 
 def step_2_user():
