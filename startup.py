@@ -21,8 +21,6 @@ def step_1_root():
     os.system(f"usermod -u {NEW_UID} ubuntu")
     os.system(f"groupmod -g {NEW_GID} ubuntu")
     os.system(f"usermod -g {NEW_GID} ubuntu")
-    os.system("find / -uid 1000 -exec chown " + NEW_UID + " '{}' \;")
-    os.system("find / -gid 1000 -exec chgrp " + NEW_GID + " '{}' \;")
     print("Change password of the ubuntu user")
     os.system(f"echo 'ubuntu:{NEW_PWD}' | chpasswd")
 
