@@ -6,13 +6,13 @@ import sys
 # Access environment variables
 USER = os.environ.get('USER')
 HOME = os.environ.get('HOME')
-NEW_UID = os.environ.get('NEW_UID', 1000)
-NEW_GID = os.environ.get('NEW_GID', 1000)
-VNCPORT = os.environ.get('VNCPORT', 5900)
-NOVNCPORT = os.environ.get('NOVNCPORT', 9090)
+NEW_UID = os.environ.get('NEW_UID', "1000")
+NEW_GID = os.environ.get('NEW_GID', "1000")
+VNCPORT = os.environ.get('VNCPORT', "5900")
+NOVNCPORT = os.environ.get('NOVNCPORT', "9090")
 VNCPWD = os.environ.get('VNCPWD', 'changeme')
 VNCDISPLAY = os.environ.get('VNCDISPLAY', '1920x1080')
-VNCDEPTH = os.environ.get('VNCDEPTH', 16)
+VNCDEPTH = os.environ.get('VNCDEPTH', "16")
 
 
 def step_1_root():
