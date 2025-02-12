@@ -43,7 +43,6 @@ startxfce4 &
 
     os.system(f"""
 echo 'NoVNC Certificate Fingerprint:';
-openssl x509 -in /etc/ssl/certs/novnc_cert.pem -noout -fingerprint -sha256;
 vncserver :0 -rfbport {VNCPORT} -geometry {VNCDISPLAY} -depth {VNCDEPTH} -localhost;
 /usr/share/novnc/utils/novnc_proxy --listen {NOVNCPORT} --vnc localhost:{VNCPORT}
     """.strip())
