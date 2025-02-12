@@ -53,7 +53,30 @@ RUN apt-get update -y && apt-get install -y golang
 USER ubuntu
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-# Switch to the non-root user and change the working directory and run!
-USER ubuntu
-WORKDIR /home/ubuntu
-ENTRYPOINT ["/bin/bash"]
+# Install XFCE desktop environment and ui packages
+USER root
+RUN apt-get update && apt-get install -y \
+    xfce4 \
+    xfce4-goodies \
+    tightvncserver \
+    sudo \
+    novnc \
+    net-tools \
+    firefox ;
+RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb ;
+RUN apt-get install -y ./google-chrome-stable_current_amd64.deb && rm ./google-chrome-stable_current_amd64.deb ;
+# # Add the user to the sudoers group
+# RUN groupadd sudoers
+# RUN usermod -aG sudoers ubuntu
+# RUN echo "%sudoers ALL=(ALL:ALL) ALL" > /etc/sudoers.d/sudoers && \
+#     chmod 0440 /etc/sudoers.d/sudoers
+
+# Set XFCE terminal as the default terminal emulator
+USER root
+RUN update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
+
+# Run!
+USER root
+ADD ./startup.py /startup.py
+WORKDIR /
+ENTRYPOINT ["/bin/bash", "-c", "python3 /startup.py --step-1-root && sudo -u ubuntu python3 /startup.py --step-2-user"]
