@@ -14,7 +14,7 @@ VNCDEPTH = os.environ.get('VNCDEPTH', 16)
 
 
 def step_1_root():
-    # Setup noVNC with SSL certificates
+    print("Setup noVNC with SSL certificates")
     os.system("""
 openssl req -new -x509 -days 365 -nodes \
 -subj "/C=US/ST=IL/L=Springfield/O=OpenSource/CN=localhost" \
@@ -25,7 +25,7 @@ chmod 600 /etc/ssl/private/novnc_combined.pem
 
 
 def step_2_user():
-    # Setup VNC server configuration
+    print("Setup VNC server configuration")
     os.system(f"mkdir -p {HOME}/.vnc/")
     os.system(f"echo {VNCPWD} | vncpasswd -f > {HOME}/.vnc/passwd")
     os.system(f"chmod 600 {HOME}/.vnc/passwd")
@@ -44,7 +44,7 @@ startxfce4 &
 echo 'NoVNC Certificate Fingerprint:';
 openssl x509 -in /etc/ssl/certs/novnc_cert.pem -noout -fingerprint -sha256;
 vncserver :0 -rfbport {VNCPORT} -geometry {VNCDISPLAY} -depth {VNCDEPTH} -localhost;
-/usr/share/novnc/utils/launch.sh --listen {NOVNCPORT} --vnc localhost:{VNCPORT} --cert /etc/ssl/private/novnc_combined.pem
+/usr/share/novnc/utils/novnc_proxy --listen {NOVNCPORT} --vnc localhost:{VNCPORT} --cert /etc/ssl/private/novnc_combined.pem
     """.strip())
 
 
