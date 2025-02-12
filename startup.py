@@ -6,6 +6,8 @@ import sys
 # Access environment variables
 USER = os.environ.get('USER')
 HOME = os.environ.get('HOME')
+NEW_UID = os.environ.get('NEW_UID', 1000)
+NEW_GID = os.environ.get('NEW_GID', 1000)
 VNCPORT = os.environ.get('VNCPORT', 5900)
 NOVNCPORT = os.environ.get('NOVNCPORT', 9090)
 VNCPWD = os.environ.get('VNCPWD', 'changeme')
@@ -14,14 +16,12 @@ VNCDEPTH = os.environ.get('VNCDEPTH', 16)
 
 
 def step_1_root():
-    print("Setup noVNC with SSL certificates")
-    os.system("""
-openssl req -new -x509 -days 365 -nodes \
--subj "/C=US/ST=IL/L=Springfield/O=OpenSource/CN=localhost" \
--out /etc/ssl/certs/novnc_cert.pem -keyout /etc/ssl/private/novnc_key.pem && \
-cat /etc/ssl/certs/novnc_cert.pem /etc/ssl/private/novnc_key.pem > /etc/ssl/private/novnc_combined.pem && \
-chmod 600 /etc/ssl/private/novnc_combined.pem
-    """.strip())
+    print("Change UID and GID of the ubuntu user.")
+    os.system(f"sudo usermod -u {NEW_UID} ubuntu")
+    os.system(f"sudo groupmod -g {NEW_GID} ubuntu")
+    os.system(f"sudo usermod -g {NEW_GID} ubuntu")
+    os.system("find / -uid 1000 -exec chown " + NEW_UID + " '{}' \;")
+    os.system("find / -gid 1000 -exec chgrp " + NEW_GID + " '{}' \;")
 
 
 def step_2_user():
@@ -44,7 +44,7 @@ startxfce4 &
 echo 'NoVNC Certificate Fingerprint:';
 openssl x509 -in /etc/ssl/certs/novnc_cert.pem -noout -fingerprint -sha256;
 vncserver :0 -rfbport {VNCPORT} -geometry {VNCDISPLAY} -depth {VNCDEPTH} -localhost;
-/usr/share/novnc/utils/novnc_proxy --listen {NOVNCPORT} --vnc localhost:{VNCPORT} --cert /etc/ssl/private/novnc_combined.pem
+/usr/share/novnc/utils/novnc_proxy --listen {NOVNCPORT} --vnc localhost:{VNCPORT}
     """.strip())
 
 
